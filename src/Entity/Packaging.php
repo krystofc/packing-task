@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use App\Structure\IWithDimensions;
+use App\Structure\IWithId;
+use App\Structure\IWithWeight;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class Packaging
+class Packaging implements IWithDimensions, IWithWeight, IWithId
 {
 
     /**
@@ -30,7 +33,7 @@ class Packaging
     /**
      * @ORM\Column(type="float")
      */
-    private float $length;
+    private float $depth;
 
     /**
      * @ORM\Column(type="float")
@@ -41,8 +44,27 @@ class Packaging
     {
         $this->width = $width;
         $this->height = $height;
-        $this->length = $length;
+        $this->depth = $length;
         $this->maxWeight = $maxWeight;
     }
 
+    public function getId(): ?int {
+        return $this->id;
+    }
+
+    public function getWidth(): float {
+        return $this->width;
+    }
+
+    public function getHeight(): float {
+        return $this->height;
+    }
+
+    public function getDepth(): float {
+        return $this->depth;
+    }
+
+    public function getWeight(): float {
+        return $this->maxWeight;
+    }
 }
